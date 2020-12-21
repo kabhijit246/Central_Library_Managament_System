@@ -1,0 +1,46 @@
+<div class="bg-info">
+    <h1>Welcome to Central Library</h1>
+</div>
+<div>
+	<a routerLink="/home" class="btn btn-dark ml-2">Back</a>
+	<a (click)="logout()" class="btn btn-danger ml-2 float-right">Logout</a>
+	<a class="d-flex btn btn-dark text-white float-right disabled"><mat-icon>person</mat-icon><span class="badge pt-2">{{user}}</span></a>
+	<input type="text" [(ngModel)]="filters.keyword" name="keyword" (input)="membersList()" placeholder="search" class="w-50 m-2 mt-2">
+	<select name="sortBy" [(ngModel)]="filters.sortBy">
+		<option>Email</option>
+		<option>Name</option>
+		<option>Major</option>
+	</select>
+</div>
+<div class="table-responsive">
+	<table class="table table-striped table-dark table-hover table-bordered">
+		<thead>
+			<tr class="text-center">
+				<th>Id</th>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Major</th>
+				<th>Password</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let member of (members | slice: lowValue: highValue)" class="text-center">
+				<td>{{member.id}}</td>
+				<td>{{member.name}}</td>
+				<td>{{member.email}}</td>
+				<td>{{member.major}}</td>
+				<td>{{member.password}}</td>
+				<td><a class="text-success" routerLink="/members/edit/{{member.id}}">Edit</a></td>
+				<td><a class="btn btn-dark text-danger" (click)="removeMember(member.id)">Delete</a></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<mat-paginator [length]="members.length"
+              [pageSize]="pageSize"
+			  [pageSizeOptions]="[10, 25, 50]" 
+			  (page)="getPaginatorData($event)"
+			  showFirstLastButtons="true">
+</mat-paginator>

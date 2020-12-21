@@ -1,0 +1,81 @@
+<div class="bg-info">
+    <h1>Welcome to Central Library</h1>
+</div>
+<a routerLink="/home" class="btn btn-dark ml-2">Back</a>
+<div class="d-flex justify-content-center">
+        <fieldset class="border border-dark p-3">
+                <legend>Add a new book:</legend>
+                <form #bookForm="ngForm" (ngSubmit)="addBooks()">
+
+                        <small class="text-danger" *ngIf="!book.id">{{errorMsg}}</small>
+                        <br>
+                        
+                        <label for="subject">The book subject: </label>
+                        <input type="text" name="subject" [(ngModel)]="book.subject" required #subject="ngModel" 
+                                class.is-invalid="subject.invalid && subject.touched">
+                        <small class="text-danger" [class.d-none]="subject.valid || subject.untouched">*Subject is required</small>
+                        <br>
+                        
+                        <label for="title">The book title: </label>
+                        <input type="text" name="title" [(ngModel)]="book.title" required #title="ngModel" 
+                                class.is-invalid="title.invalid && title.touched">
+                        <small class="text-danger" [class.d-none]="title.valid || title.untouched">*Title is required</small>
+                        <br>
+                        
+                        <label for="author">The name of the Author(s): </label>
+                        <input type="text" name="author" [(ngModel)]="book.author" required #author="ngModel" 
+                                class.is-invalid="author.invalid && author.touched">
+                        <small class="text-danger" [class.d-none]="author.valid || author.untouched">*Author is required</small>
+                        <br>
+                        
+                        <label for="publisher">The name of the Publisher: </label>
+                        <input type="text" name="publisher" [(ngModel)]="book.publisher">
+                        <br>
+                        
+                        <label for="Copyright">Copyright for the book: </label>
+                        <input type="text" name="copyright" [(ngModel)]="book.copyright"><br>
+                        
+                        <label for="edition">The edition number: </label>
+                        <input type="text" name="edition" [(ngModel)]="book.edition" pattern="^[0-9]*[1-9][0-9]*$" #edition="ngModel"
+                                class.is-invalid="edition.invalid && edition.touched">
+                        <small class="text-danger" [class.d-none]="edition.valid || edition.untouched">*Enter positive integer</small>        
+                        <br>
+                        
+                        <label for="pages">The number of Pages: </label>
+                        <input type="text" name="pages" [(ngModel)]="book.pages" pattern="^[0-9]*[1-9][0-9]*$" #pages="ngModel"
+                                class.is-invalid="pages.invalid && pages.touched">
+                        <small class="text-danger" [class.d-none]="pages.valid || pages.untouched">*Enter positive integer</small>
+                        <br>
+                        
+                        <label for="isbn">ISBN for the book: </label>
+                        <input type="text" name="isbn" [(ngModel)]="book.isbn" pattern="^[0-9]*[1-9][0-9]*$" #isbn="ngModel"
+                                class.is-invalid="isbn.invalid && isbn.touched">
+                        <small class="text-danger" [class.d-none]="isbn.valid || isbn.untouched">*Enter positive integer</small>
+                        <br>
+                        
+                        <label for="copies">The number of copies: </label>
+                        <input type="text" name="copies" [(ngModel)]="book.copies" pattern="^[0-9]*[1-9][0-9]*$" #copies="ngModel" 
+                                class.is-invalid="copies.invalid && copies.touched">
+                        <small class="text-danger" [class.d-none]="copies.valid || copies.untouched">*Enter positive integer</small>
+                        <br>
+                        
+                        <label for="libraryName">The name of the Library: </label>
+                        <input type="text" name="libraryName" [(ngModel)]="book.libraryName" required #libraryName="ngModel" 
+                                class.is-invalid="libraryName.invalid && libraryName.touched">
+                        <small class="text-danger" [class.d-none]="libraryName.valid || libraryName.untouched">*Library Name is required</small>
+                        <br>
+                        
+                        <label for="shelfNo">Shelf No: </label>
+                        <input type="text" name="shelfNo" [(ngModel)]="book.shelfNo" pattern="^[0-9]*[1-9][0-9]*$" #shelfNo="ngModel"
+                                class.is-invalid="shelfNo.invalid && shelfNo.touched"> 
+                        <small class="text-danger" [class.d-none]="shelfNo.valid || shelfNo.untouched">*Enter positive integer</small>
+                        <br>
+
+                        <div class="d-flex justify-content-end">
+                                <button class="btn-primary mr-2" *ngIf="!book.id" [disabled]="bookForm.form.invalid">Insert the Information</button>
+                                <button class="btn-primary mr-2" *ngIf="book.id" (click)="updateBook()" [disabled]="bookForm.form.invalid">Update</button>
+                                <button class="btn-danger" *ngIf="book.id" (click)="removeBook(book.id)">Delete</button>
+                        </div>
+                </form>
+        </fieldset>
+</div>

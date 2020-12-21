@@ -1,0 +1,56 @@
+<div class="bg-info">
+    <h1>Welcome to Central Library</h1>
+</div>
+<a routerLink="/home" class="btn btn-dark ml-2">Back</a>
+<div class="d-flex justify-content-center">
+    <fieldset class="border border-dark p-3">
+        <legend>Add a new member:</legend>
+        <form #memberForm="ngForm" (ngSubmit)="addMembers()">
+
+            <small class="text-danger" *ngIf="!member.id">{{errorMsg}}</small>
+            <br>
+            
+            <label for="name">The Name:</label> 
+            <input type="text" name="name" [(ngModel)]="member.name" required #name="ngModel"
+                    class.is-invalid="name.invalid && name.touched">
+            <small class="text-danger" [class.d-none]="name.valid || name.untouched">*Name is required</small>
+            <br>
+            
+            <label for="email">EMAIL:</label>
+            <input type="email" name="email" [(ngModel)]="member.email" required pattern="([a-zA-Z0-9]+)([\.{1}])?([a-zA-Z0-9]+)\@(?:gmail|GMAIL)([\.])(?:com|COM)" #email="ngModel"
+                    class.is-invalid="email.invalid && email.touched">
+                <span *ngIf="email.errors && (email.invalid && email.touched)">
+                    <small class="text-danger" *ngIf="email.errors.required">*Email is required</small>
+                    <small class="text-danger" *ngIf="email.errors.pattern">*Enter valid Email</small>
+                </span>
+            <br>
+
+            <label for="major">Major: </label>
+            <input type="text" name="major" [(ngModel)]="member.major" required #major="ngModel"
+                    class.is-invalid="major.invalid && major.touched">
+                <small class="text-danger" [class.d-none]="major.valid || major.untouched">*Major is required</small>
+            <br>
+
+            <label for="password">The Password:</label>
+            <input type="text" name="password" [(ngModel)]="member.password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{8,}$" #password="ngModel"
+                    class.is-invalid="password.invalid && password.touched">
+                <span *ngIf="password.errors && (password.invalid && password.touched)">
+                    <small class="text-danger" *ngIf="password.errors.required">*Password is required</small>
+                    <small class="text-danger" *ngIf="password.errors.pattern">*Password must contains atleast 8 characters which includes atleast one uppercase, one lowercase, one digit and one special characters</small>
+                </span>
+            <br>
+
+            <label for="duplicate_password">Rewrite the password:</label> 
+            <input type="password" name="duplicate_password" (ngModel)="member.password" required #duplicate_password="ngModel"
+                        class.is-invalid="duplicate_password.invalid && duplicate_password.touched">
+            <small class="text-danger" [class.d-none]="duplicate_password.value == password.value || duplicate_password.untouched">*Password and Rewrite Password must be same</small>
+            <br>
+
+            <div class="d-flex justify-content-end">
+                <button class="btn-primary mr-2" *ngIf="!member.id" [disabled]="memberForm.form.invalid">Insert the Information</button>
+                <button class="btn-primary mr-2" *ngIf="member.id" (click)="updateMember()" [disabled]="memberForm.form.invalid">Update</button>
+                <button class="btn-danger" *ngIf="member.id" (click)="removeMember(member.id)">Delete</button>
+            </div>
+        </form>
+    </fieldset>
+</div>

@@ -1,0 +1,76 @@
+<div class="bg-info">
+    <h1>Welcome to Central Library</h1>
+</div>
+<a routerLink="/issued_book" class="btn btn-dark ml-2 mr-3">Back</a>
+<div class="d-flex justify-content-center">
+    <form #bookReturnForm="ngForm" (ngSubmit)="returnedBook()">
+        <fieldset class="border border-dark p-3">
+            <legend>Details:</legend>
+            
+            <label for="book_id">Book Id:</label>
+            <input type="text" name="book_id" value="{{issuedBook.bookId}}">
+            <br>
+                    
+            <label for="subject">Subject:</label>
+            <input type="text" name="subject" value="{{issuedBook.subject}}">
+            <br>
+                    
+            <label for="title">Title:</label>
+            <input type="text" name="title" value="{{issuedBook.title}}">
+            <br>
+                    
+            <label for="author">Author(s):</label>
+            <input type="text" name="author" value="{{issuedBook.author}}">
+            <br>
+
+            <label for="edition">Edition number:</label>
+            <input type="text" name="edition" value="{{issuedBook.edition}}">        
+            <br>
+                        
+            <label for="pages">Pages:</label>
+            <input type="text" name="pages" value="{{issuedBook.pages}}">
+            <br>
+                        
+            <label for="isbn">ISBN:</label>
+            <input type="text" name="isbn" value="{{issuedBook.isbn}}">
+            <br>
+
+            <label for="libraryName">The name of the Library: </label>
+            <input type="text" name="libraryName" value="{{issuedBook.libraryName}}">
+            <br>
+        
+            <label for="member_id">Member Id:</label>
+            <input type="text" name="member_id" value="{{issuedBook.memberId}}">
+            <br>
+
+            <label for="name">Name:</label> 
+            <input type="text" name="name" value="{{issuedBook.name}}">
+            <br>
+
+            <label for="email">EMAIL:</label>
+            <input type="email" name="email" value="{{issuedBook.email}}">
+            <br>
+
+            <label for="major">Major:</label>
+            <input type="text" name="major" value="{{issuedBook.major}}">
+            <br>
+            
+            <label for="issueDate">Issue date:</label>
+            <input type="date" name="issueDate" value="{{issuedBook.issueDate}}">
+            <br>
+
+            <label for="expireDate">Expire date:</label>
+            <input type="date" name="expireDate" value="{{issuedBook.expireDate}}">
+            <br>
+            
+            <label for="returnDate">Return date:</label>
+            <input type="date" name="returnDate" [(ngModel)]="returnBook.returnDate"  required #returnDate="ngModel"
+                    class.is-invalid="returnDate.invalid && returnDate.touched">
+            <small class="text-danger" [class.d-none]="returnDate.valid || returnDate.untouched">*Return date is required</small>
+            <br>
+
+        </fieldset>
+        
+        <button type="submit" class="btn btn-primary mt-2" [disabled]="bookReturnForm.form.invalid">Return</button>
+    </form>
+</div>

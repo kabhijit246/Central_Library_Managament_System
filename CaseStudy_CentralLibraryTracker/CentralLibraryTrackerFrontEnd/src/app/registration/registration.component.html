@@ -1,0 +1,40 @@
+<div class="bg-info">
+    <h1>Welcome to Central Library</h1>
+</div>
+<div class="d-flex justify-content-center">
+    <fieldset class="border border-dark p-3 w-25">
+        <legend>Registration:</legend>
+        <form #registerForm="ngForm" (ngSubmit)="registerUser()">
+            <small class="text-danger">{{errorMsg}}</small>
+            <input type="text" class="form-control w-75" name="email" [(ngModel)]="user.email" placeholder="Email" required pattern="([a-zA-Z0-9]+)([\.{1}])?([a-zA-Z0-9]+)\@(?:gmail|GMAIL)([\.])(?:com|COM)" #email="ngModel"
+                class.is-invalid="email.invalid && email.touched">
+            <div *ngIf="email.errors && (email.invalid && email.touched)">
+                <small class="text-danger" *ngIf="email.errors.required">*Email is required</small>
+                <small class="text-danger" *ngIf="email.errors.pattern">*Enter valid Email</small>
+            </div>
+            <br>
+            <input type="text" class="form-control w-75" name="username" [(ngModel)]="user.username" placeholder="Username" required #username="ngModel"
+                class.is-invalid="username.invalid && username.touched">
+            <small class="text-danger" [class.d-none]="username.valid || username.untouched">*Username is required</small>
+            <br>
+            <input type="password" class="form-control w-75" name="password" [(ngModel)]="user.password" placeholder="Password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{8,}$" #password="ngModel"
+                    class.is-invalid="password.invalid && password.touched">
+            <div *ngIf="password.errors && (password.invalid && password.touched)">
+                <small class="text-danger" *ngIf="password.errors.required">*Password is required</small>
+                <small class="text-danger" *ngIf="password.errors.pattern">*Password must contains atleast 8 characters which includes atleast one uppercase, one lowercase, one digit and one special characters</small>
+            </div>
+            <br>
+            <input type="password" class="form-control w-75" name="cnfrmPassword" (ngModel)="user.password" placeholder="Confirm Password" required #cnfrmPassword="ngModel"
+                    class.is-invalid="cnfrmPassword.invalid && cnfrmPassword.touched">
+            <small class="text-danger" [class.d-none]="cnfrmPassword.value == password.value || cnfrmPassword.untouched">*Password and Confirm Password must be same</small>
+            <br>
+            <input type="text" class="form-control w-75" name="role" [(ngModel)]="user.role" placeholder="Role" required #role="ngModel"
+                class.is-invalid="role.invalid && role.touched">
+            <small class="text-danger" [class.d-none]="role.valid || role.untouched">*Role is required</small>
+            <br>
+        
+            <button class="btn-primary" type="submit" [disabled]="registerForm.form.invalid">Register</button>
+            <small class="float-right">Existing User? <a routerLink="/login">Login Here!</a></small>
+        </form>
+    </fieldset>
+</div>

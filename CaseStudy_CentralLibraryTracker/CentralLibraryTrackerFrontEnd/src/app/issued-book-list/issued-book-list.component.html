@@ -1,0 +1,66 @@
+<div class="bg-info">
+    <h1>Welcome to Central Library</h1>
+</div>
+<div>
+	<a routerLink="/home" class="btn btn-dark ml-2 mr-3">Back</a>
+	<a (click)="logout()" class="btn btn-danger ml-2 float-right">Logout</a>
+    <a class="d-flex btn btn-dark text-white float-right disabled"><mat-icon>person</mat-icon><span class="badge pt-2">{{user}}</span></a>
+	<input type="text" [(ngModel)]="filters.keyword" name="keyword" (input)="issuedList()" placeholder="search" class="w-50 m-2 mt-2">
+	<select name="sortBy" [(ngModel)]="filters.sortBy">
+		<option>Title</option>
+		<option>Subject</option>
+        <option>Author</option>
+        <option>Name</option>
+		<option>Email</option>
+	</select>
+</div>
+<div class="table-responsive">
+    <table class="table table-dark table-striped table-hover table-bordered">
+        <thead>
+            <tr class="text-center">
+                <th>Sl No.</th>
+                <th>Book Id</th>
+                <th>Member Id</th>
+                <th>Member Name</th>
+                <th>Member Email</th>
+                <th>Major</th>
+                <th>Subject</th>
+                <th>Title</th>
+                <th>Author(s)</th>
+                <th>Edition</th>
+                <th>Pages</th>
+                <th>ISBN</th>
+                <th>Library Name</th>
+                <th>Issued Date</th>
+                <th>Expire Date</th>
+                <th>Return</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let book of (issuedBook | slice: lowValue: highValue); let i = index" class="text-center">
+                <td>{{i + 1}}</td>
+                <td>{{book.bookId}}</td>
+                <td>{{book.memberId}}</td>
+                <td>{{book.name}}</td>
+                <td>{{book.email}}</td>
+                <td>{{book.major}}</td>
+                <td>{{book.subject}}</td>
+                <td>{{book.title}}</td>
+                <td>{{book.author}}</td>
+                <td>{{book.edition}}</td>
+                <td>{{book.pages}}</td>
+                <td>{{book.isbn}}</td>
+                <td>{{book.libraryName}}</td>
+                <td>{{book.issueDate | date:"dd-MM-yyyy"}}</td>
+                <td>{{book.expireDate | date:"dd-MM-yyyy"}}</td>
+                <td><a routerLink="/returnBook/{{book.id}}">Return</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<mat-paginator [length]="issuedBook.length"
+              [pageSize]="pageSize"
+			  [pageSizeOptions]="[10, 25, 50]" 
+			  (page)="getPaginatorData($event)"
+			  showFirstLastButtons="true">
+</mat-paginator>

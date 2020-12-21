@@ -1,0 +1,109 @@
+<div class="bg-info">
+    <h1>Welcome to Central Library</h1>
+</div>
+<a routerLink="/home" class="btn btn-dark ml-2 mr-3">Back</a>
+<div class="d-flex justify-content-center">
+    <form #bookIssueForm="ngForm" (ngSubmit)="issueBook()">
+        <fieldset class="border border-dark p-3">
+            <legend>Book details:</legend>
+            
+            <small class="text-danger mr-2">{{errorMsg2}}</small>
+            <span *ngIf="book_id.errors && (book_id.invalid && book_id.touched)">
+                <small class="text-danger" *ngIf="book_id.errors.required">*Book Id is required</small>
+                <small class="text-danger" *ngIf="book_id.errors.pattern">*Enter positive Integer</small>
+            </span>
+            <br>
+
+            <label for="book_id">Book Id:</label>
+            <input type="text" name="book_id" [(ngModel)]="issuedBook.bookId" required pattern="^[0-9]*[1-9][0-9]*$" #book_id="ngModel" 
+                    class.is-invalid="book_id.invalid && book_id.touched">
+            <a class="btn btn-primary ml-2" *ngIf="issuedBook.bookId | number" (click)="searchBookId()"><mat-icon class="mt-2">search</mat-icon></a>
+            <br>
+                    
+            <label for="subject">Subject:</label>
+            <input type="text" name="subject" value="{{book.subject}}">
+            <br>
+                    
+            <label for="title">Title:</label>
+            <input type="text" name="title" value="{{book.title}}">
+            <br>
+                    
+            <label for="author">Author(s):</label>
+            <input type="text" name="author" value="{{book.author}}">
+            <br>
+
+            <label for="edition">Edition number:</label>
+            <input type="text" name="edition" value="{{book.edition}}">        
+            <br>
+                        
+            <label for="pages">Pages:</label>
+            <input type="text" name="pages" value="{{book.pages}}">
+            <br>
+                        
+            <label for="isbn">ISBN:</label>
+            <input type="text" name="isbn" value="{{book.isbn}}">
+            <br>
+
+            <label for="libraryName">The name of the Library: </label>
+            <input type="text" name="libraryName" value="{{book.libraryName}}">
+            <br>
+
+        </fieldset>
+        
+        <fieldset class="border border-dark p-3">
+            <legend>Member details:</legend>
+        
+            <small class="text-danger mr-2">{{errorMsg3}}</small>
+            <span *ngIf="member_id.errors && (member_id.invalid && member_id.touched)">
+                <small class="text-danger" *ngIf="member_id.errors.required">*Member Id is required</small>
+                <small class="text-danger" *ngIf="member_id.errors.pattern">*Enter positive Integer</small>
+            </span>
+            <br>
+
+            <label for="member_id">Member Id:</label>
+            <input type="text" name="member_id" [(ngModel)]="issuedBook.memberId" required pattern="^[0-9]*[1-9][0-9]*$" #member_id="ngModel" 
+                    class.is-invalid="member_id.invalid && member_id.touched">
+            <a class="btn btn-primary ml-2" *ngIf="issuedBook.memberId | number" (click)="searchMemberId()"><mat-icon class="mt-2">search</mat-icon></a>
+
+            
+            <br>
+
+            <label for="name">Name:</label> 
+            <input type="text" name="name" value="{{member.name}}">
+            <br>
+
+            <label for="email">EMAIL:</label>
+            <input type="email" name="email" value="{{member.email}}">
+            <br>
+
+            <label for="major">Major:</label>
+            <input type="text" name="major" value="{{member.major}}">
+            <br>
+            
+        </fieldset>
+            
+        <fieldset class="border border-dark p-3">
+            <legend>Date details:</legend>
+            
+            <label for="issueDate">Issue date:</label>
+            <input type="date" name="issueDate" [(ngModel)]="issuedBook.issueDate" required #issueDate="ngModel"
+                    class.is-invalid="issueDate.invalid && issueDate.touched">
+            <small class="text-danger" [class.d-none]="issueDate.valid || issueDate.untouched">*Issue date is required</small>
+            <br>
+
+            <label for="expireDate">Expire date:</label>
+            <input type="date" name="expireDate" [(ngModel)]="issuedBook.expireDate" required #expireDate="ngModel"
+                    class.is-invalid="expireDate.invalid && expireDate.touched">
+            <small class="text-danger" [class.d-none]="expireDate.valid || expireDate.untouched">*Expire date is required</small>
+        </fieldset>
+        
+        <br>
+
+        <div class="d-flex justify-content-center">
+            <small class="text-danger mr-2">{{errorMsg1}}</small>
+        </div>
+        <div *ngIf="errorMsg2 == '' && errorMsg3 == ''" class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary" *ngIf="book.copies !== 0" [disabled]="bookIssueForm.form.invalid">Issue</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,27 @@
+<div id="max-issued-book">
+    <div class="d-flex justify-content-center">
+        <fieldset class="border border-dark p-3 w-50">
+            <legend>10 most borrowed books:</legend>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr class="text-center">
+                            <th>Rank</th>
+                            <th>Category</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let book of maxIssuedBook; let i = index" class="text-center">
+                            <td>{{i + 1}}</td>
+                            <td>{{book.subject}}</td>
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="d-flex justify-content-center mt-2">
+    <a routerLink="/home" class="btn btn-dark mr-2"><small>Back</small></a>
+    <a class="btn btn-dark text-white" (click)="print('max-issued-book')"><small>Print</small></a>
+</div>

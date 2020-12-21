@@ -1,0 +1,25 @@
+<div id="penaltyReport">
+    <div class="d-flex justify-content-center">
+        <fieldset class="border border-dark p-3 w-50">
+            <legend>Penalty Report:</legend>
+            <p><u>Member Details:</u></p>
+            <p>Name: <span style="margin-left: 80px;">{{returnBook.name}}</span></p>
+            <p>Email: <span style="margin-left: 83px;">{{returnBook.email}}</span></p>
+            <p>Major: <span style="margin-left: 80px;">{{returnBook.major}}</span></p>
+            <p><u>Book Details:</u></p>
+            <p>Subject: <span style="margin-left: 69px;">{{returnBook.subject}}</span></p>
+            <p>Title: <span style="margin-left: 91px;">{{returnBook.title}}</span></p>
+            <p>Author(s): <span style="margin-left: 56px;">{{returnBook.author}}</span></p>
+            <p>Issued Date: <span style="margin-left: 38px;">{{returnBook.issueDate | date:"dd-MM-yyyy"}}</span></p>
+            <p>Expired Date: <span style="margin-left: 33px;">{{returnBook.expireDate | date:"dd-MM-yyyy"}}</span></p>
+            <p>Returned Date: <span style="margin-left: 22px;">{{returnBook.returnDate | date:"dd-MM-yyyy"}}</span></p>
+            <p>Late: <span style="margin-left: 92px;">{{returnBook.status}} day(s)</span></p>
+            <p><b style="margin-right: 68px;">Penalty: </b><span class="text-danger">{{fine | currency:"INR"}}</span></p>
+            <p class="text-center">Thank you for visiting us!</p>
+        </fieldset>
+    </div>
+</div>
+<div class="d-flex justify-content-center mt-2">
+    <a routerLink="/returned_book/history" class="btn btn-dark mr-2"><small>Back</small></a>
+    <a class="btn btn-dark text-white" (click)="print('penaltyReport')"><small>Print</small></a>
+</div>
